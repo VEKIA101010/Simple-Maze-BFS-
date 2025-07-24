@@ -21,7 +21,6 @@ def generate_maze(width, height):
                 maze[y + dy//2][x + dx//2] = 0
                 carve(nx, ny)
 
-    # 从随机奇数坐标开始挖洞
     start_x = random.randrange(1, width, 2)
     start_y = random.randrange(1, height, 2)
     maze[start_y][start_x] = 0
@@ -79,18 +78,17 @@ def bfs(maze, start, end, delay=0.05):
 
 if __name__ == "__main__":
     maze, start = generate_maze(WIDTH, HEIGHT)
-    # 终点随机选一个通路格子
     free_cells = [(x,y) for y,row in enumerate(maze) for x,cell in enumerate(row) if cell == 0 and (x,y) != start]
     end = random.choice(free_cells)
 
-    print("生成的迷宫大小:", WIDTH, "x", HEIGHT)
-    print("起点:", start, "终点:", end)
+    print("The size of the generated maze:", WIDTH, "x", HEIGHT)
+    print("begin:", start, "end:", end)
     time.sleep(2)
 
     path = bfs(maze, start, end, delay=0.05)
     if path:
         clear_console()
         print_maze(maze, set(path), set(), start, end)
-        print("找到路径！长度:", len(path))
+        print("找Find the path! Length:", len(path))
     else:
-        print("无路径")
+        print("no solution")
